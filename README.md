@@ -20,17 +20,24 @@
     ```
     sudo sh -c 'echo "$(whoami) ALL = (ALL) NOPASSWD:/usr/sbin/networksetup" >> /etc/sudoers' 
     ```
-3. **Restart your shell**
+3. **import shell config**
+  
+    If you use bash shell
     ```
-    exec $SHELL
-    ``` 
+    source ~/.bash_profile
+    ```
+    
+    **[option]**  If you use zsh shell
+    ```
+    source ~/.zshrc
+    ```
 4. **Download dependency**
     ```
     proxy init
     ```
 
 5. **Add your outbounds**
-    
+  
     Add your outbounds settings into [config.json](./config.json)
 
 5. **Start your proxy**
@@ -44,7 +51,7 @@
     ```
 
 7. **[option] Setup terminal proxy**
-    
+  
     if you use bash shell
     ```
     echo -e "export http_proxy='http://127.0.0.1:9090'\nexport https_proxy='http://127.0.0.1:9090'" >> ~/.bash_profile
@@ -60,7 +67,7 @@
     ```
 
 9. **[option] Persistently unset terminal proxy**
-    
+  
     delete the follow lines in your `.bash_profile` or `.zshrc`
     ```
     export http_proxy='http://127.0.0.1:9090'
