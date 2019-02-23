@@ -1,0 +1,80 @@
+{
+  "log": {
+    "access": "/usr/local/var/log/v2ray/access.log",
+    "error": "/usr/local/var/log/v2ray/error.log",
+    "loglevel": "error"
+  },
+  "inbounds": [
+    {
+      "port": 9090,
+      "listen": "127.0.0.1",
+      "protocol": "http",
+      "settings": {
+        "timeout": 0,
+        "allowTransparent": false,
+        "userLevel": 0
+      },
+      "streamSettings": {},
+      "tag": "in-http",
+      "sniffing": {
+        "enabled": false,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "allocate": {
+        "strategy": "always",
+        "refresh": 5,
+        "concurrency": 3
+      }
+    },
+    {
+      "port": 9091,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false,
+        "ip": "127.0.0.1",
+        "userLevel": 0
+      },
+      "streamSettings": {},
+      "tag": "in-socks",
+      "sniffing": {
+        "enabled": false,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "allocate": {
+        "strategy": "always",
+        "refresh": 5,
+        "concurrency": 3
+      }
+    }
+  ],
+  "outbounds":["^.^ update your outbouds config here ^.^ "],
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "domain": [
+          "geosite:cn",
+          "geosite:speedtest"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "ip": [
+          "geoip:cn",
+          "geoip:private"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}

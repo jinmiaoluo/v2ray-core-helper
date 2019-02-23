@@ -1,0 +1,103 @@
+#!/bin/bash
+
+# function define
+setProxy() {
+    sudo networksetup -setsocksfirewallproxy 'Wi-Fi' 127.0.0.1 9091 &>/dev/null
+    sudo networksetup -setsecurewebproxystate 'Wi-Fi' off &>/dev/null
+    sudo networksetup -setwebproxystate 'Wi-Fi' off &>/dev/null
+    sudo networksetup -setsocksfirewallproxy 'Thunderbolt Ethernet' 127.0.0.1 9091 &>/dev/null
+    sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off &>/dev/null
+    sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off &>/dev/null
+    sudo networksetup -setsocksfirewallproxy 'Ethernet' 127.0.0.1 9091 &>/dev/null
+    sudo networksetup -setsecurewebproxystate 'Ethernet' off &>/dev/null
+    sudo networksetup -setwebproxystate 'Ethernet' off &>/dev/null
+    sudo networksetup -setproxybypassdomains 'Wi-Fi' 'localhost 127.0.0.1' &>/dev/null
+    sudo networksetup -setproxybypassdomains 'Ethernet' 'localhost 127.0.0.1' &>/dev/null
+    sudo networksetup -setproxybypassdomains 'Thunderbolt Ethernet' 'localhost 127.0.0.1' &>/dev/null
+}
+unsetProxy() {
+    sudo networksetup -setsecurewebproxystate Wi-Fi off &>/dev/null
+    sudo networksetup -setwebproxystate Wi-Fi off &>/dev/null
+    sudo networksetup -setsocksfirewallproxystate Wi-Fi off &>/dev/null
+    sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off &>/dev/null
+    sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off &>/dev/null
+    sudo networksetup -setsocksfirewallproxystate 'Thunderbolt Ethernet' off &>/dev/null
+    sudo networksetup -setsecurewebproxystate 'Ethernet' off &>/dev/null
+    sudo networksetup -setwebproxystate 'Ethernet' off &>/dev/null
+    sudo networksetup -setsocksfirewallproxystate 'Ethernet' off &>/dev/null
+}
+testProxy() {
+    curl -s www.google.com &>/dev/null
+    if [[ $? -eq 0 ]]; then
+        echo "proxy is ready..."
+        return 0
+    else
+        echo "proxy is not ready..."
+        return 1
+    fi
+}
+initProxy(){
+    # homebrew
+    brew -v &>/dev/null
+    if [[ $? -eq 1 ]]; then
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+
+    #v2ray-core
+    type v2ray &>/dev/null
+    if [[ $? -eq 1 ]]; then
+      brew tap v2ray/v2ray && brew install v2ray-core
+    fi
+
+    # upgrade v2ray-core for compatibility
+    type v2ray &>/dev/null
+    if [[ $? -eq 0 ]]; then
+      brew upgrade v2ray-core
+    fi
+}
+
+# main code
+case $1 in
+init)
+initProxy
+;;
+
+start)
+echo proxy starting and will autostart when reboot...
+brew services start v2ray-core
+setProxy
+;;
+
+stop)
+echo proxy stopping and will not autostart when reboot...
+brew services stop v2ray-core
+unsetProxy
+;;
+
+status)
+echo checking proxy status...
+testProxy
+brew services list | grep v2ray-core
+;;
+
+upgrade)
+echo upgrading...
+cd ~/.proxy && git stash save && git pull origin master && git stash pop
+cp /usr/local/etc/v2ray/config.json /usr/local/etc/v2ray/config.json.bak
+cat ~/.proxy/config.json > /usr/local/etc/v2ray/config.json
+brew upgrade v2ray-core
+brew services restart v2ray-core
+cd -
+;;
+
+help|*)
+
+echo -e '''
+init      Download and setup dependencies.
+start     Start your proxy and setup global proxy environment.
+stop      Stop your proxy and restore global proxy environment.
+status    Show proxy status.
+upgrade   Upgrade proxy server and config and current repository, and then restart proxy.
+'''
+;;
+esac
