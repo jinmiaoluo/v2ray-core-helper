@@ -51,7 +51,6 @@ initProxy(){
 
     cp /usr/local/etc/v2ray/config.json /usr/local/etc/v2ray/config.json.bak
     cat ~/.proxy/config.json > /usr/local/etc/v2ray/config.json
-    mkdir -p /usr/local/var/log/v2ray
 }
 
 # main code
