@@ -54,6 +54,9 @@ initProxy(){
     if [[ $? -eq 0 ]]; then
       brew upgrade v2ray-core
     fi
+
+    cp /usr/local/etc/v2ray/config.json /usr/local/etc/v2ray/config.json.bak
+    cat ~/.proxy/config.json > /usr/local/etc/v2ray/config.json
 }
 
 # main code

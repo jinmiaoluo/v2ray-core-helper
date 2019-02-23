@@ -31,26 +31,26 @@
     ```
     source ~/.zshrc
     ```
-4. **Download dependency**
+4. **Add your outbounds**
+   
+    Add your outbounds settings into [config.json](./config.json)
+  
+5. **Download dependency**
     ```
     proxy init
     ```
 
-5. **Add your outbounds**
-  
-    Add your outbounds settings into [config.json](./config.json)
-
-5. **Start your proxy**
+6. **Start your proxy**
     ```
     proxy start
     ```
     
-6. **Figure out more usage**
+7. **Figure out more usage**
     ```
     proxy help
     ```
 
-7. **[option] Setup terminal proxy**
+8. **[option] Setup terminal proxy**
   
     if you use bash shell
     ```
@@ -61,12 +61,12 @@
     echo -e "export http_proxy='http://127.0.0.1:9090'\nexport https_proxy='http://127.0.0.1:9090'" >> ~/.zshrc
     ```
     
-8. **[option] Temporarily unset terminal proxy**
+9. **[option] Temporarily unset terminal proxy**
     ```
     unset http_proxy && unset https_proxy
     ```
 
-9. **[option] Persistently unset terminal proxy**
+10. **[option] Persistently unset terminal proxy**
   
     delete the follow lines in your `.bash_profile` or `.zshrc`
     ```
