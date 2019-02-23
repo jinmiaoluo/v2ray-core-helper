@@ -39,13 +39,13 @@ testProxy() {
 initProxy(){
     # homebrew
     brew -v &>/dev/null
-    if [[ $? -eq 1 ]]; then
+    if [[ ! $? -eq 0 ]]; then
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
 
     #v2ray-core
     type v2ray &>/dev/null
-    if [[ $? -eq 1 ]]; then
+    if [[ ! $? -eq 0 ]]; then
       brew tap v2ray/v2ray && brew install v2ray-core
     fi
 
