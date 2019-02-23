@@ -71,6 +71,11 @@ brew services stop v2ray-core
 unsetProxy
 ;;
 
+restart)
+echo proxy restarting...
+brew services restart v2ray-core
+;;
+
 status)
 echo checking proxy status...
 testProxy
@@ -93,6 +98,7 @@ echo -e '''
 init      Download and setup dependencies.
 start     Start your proxy and setup global proxy environment.
 stop      Stop your proxy and restore global proxy environment.
+restart   Restart proxy server (v2ray-core) .
 status    Show proxy status.
 upgrade   Upgrade proxy server and config and current repository, and then restart proxy.
 '''
