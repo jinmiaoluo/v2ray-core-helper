@@ -49,12 +49,6 @@ initProxy(){
       brew tap v2ray/v2ray && brew install v2ray-core
     fi
 
-    # upgrade v2ray-core for compatibility
-    type v2ray &>/dev/null
-    if [[ $? -eq 0 ]]; then
-      brew upgrade v2ray-core
-    fi
-
     cp /usr/local/etc/v2ray/config.json /usr/local/etc/v2ray/config.json.bak
     cat ~/.proxy/config.json > /usr/local/etc/v2ray/config.json
 }
