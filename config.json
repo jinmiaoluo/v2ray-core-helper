@@ -55,7 +55,23 @@
       }
     }
   ],
-  "outbounds":["^.^ update your outbouds config here ^.^ "],
+  "outbounds":[
+    {
+      "^.^ update your outbouds config here ^.^ "
+    },
+    {
+      "sendThrough": "0.0.0.0",
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "AsIs",
+        "redirect": ":0",
+        "userLevel": 0
+      },
+      "tag": "direct",
+      "streamSettings": {},
+      "mux": {}
+    }
+  ],
   "routing": {
     "domainStrategy": "IPIfNonMatch",
     "rules": [
