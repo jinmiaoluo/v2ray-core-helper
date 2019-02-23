@@ -75,6 +75,8 @@ unsetProxy
 
 restart)
 echo proxy restarting...
+unsetProxy
+setProxy
 brew services restart v2ray-core
 ;;
 

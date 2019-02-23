@@ -18,7 +18,7 @@
     
     Setup property permission
     ```
-    sudo sh -c 'echo "$(whoami) ALL = (ALL) NOPASSWD:/usr/sbin/networksetup" >> /etc/sudoers' 
+    sudo sh -c 'echo "%admin ALL = (ALL) NOPASSWD:/usr/sbin/networksetup" >> /etc/sudoers' 
     ```
 3. **import shell config**
   
