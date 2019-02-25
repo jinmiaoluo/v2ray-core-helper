@@ -33,7 +33,7 @@
     ```
 4. **Add your outbounds**
    
-    Add your outbounds settings into [config.json](./config.json)
+    Add your outbounds settings into [config.json](https://github.com/jinmiaoluo/v2ray-core-helper/blob/401463947270acf40069ac6c9be5462843ca2817/config.json#L60)
   
 5. **Download dependency**
     ```
