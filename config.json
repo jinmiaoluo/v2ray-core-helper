@@ -92,5 +92,17 @@
         "outboundTag": "direct"
       }
     ]
-  }
+	},
+	"dns": {
+		"servers": [
+			"localhost",
+			{
+				"address": "8.8.8.8",
+				"port": 53,
+				"domains": [
+					"geosite:geolocation-!cn"
+			]
+			}
+		]
+	}
 }
