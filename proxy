@@ -5,20 +5,27 @@ setProxy() {
     sudo networksetup -setsocksfirewallproxy 'Wi-Fi' 127.0.0.1 9091 &>/dev/null
     sudo networksetup -setsecurewebproxystate 'Wi-Fi' off &>/dev/null
     sudo networksetup -setwebproxystate 'Wi-Fi' off &>/dev/null
+    sudo networksetup -setproxybypassdomains 'Wi-Fi' 'localhost 127.0.0.1' &>/dev/null
+    sudo networksetup -setsocksfirewallproxy 'iPhone USB' 127.0.0.1 9091 &>/dev/null
+    sudo networksetup -setsecurewebproxystate 'iPhone USB' off &>/dev/null
+    sudo networksetup -setwebproxystate 'iPhone USB' off &>/dev/null
+    sudo networksetup -setproxybypassdomains 'iPhone USB' 'localhost 127.0.0.1' &>/dev/null
     sudo networksetup -setsocksfirewallproxy 'Thunderbolt Ethernet' 127.0.0.1 9091 &>/dev/null
     sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off &>/dev/null
     sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off &>/dev/null
+    sudo networksetup -setproxybypassdomains 'Thunderbolt Ethernet' 'localhost 127.0.0.1' &>/dev/null
     sudo networksetup -setsocksfirewallproxy 'Ethernet' 127.0.0.1 9091 &>/dev/null
     sudo networksetup -setsecurewebproxystate 'Ethernet' off &>/dev/null
     sudo networksetup -setwebproxystate 'Ethernet' off &>/dev/null
-    sudo networksetup -setproxybypassdomains 'Wi-Fi' 'localhost 127.0.0.1' &>/dev/null
     sudo networksetup -setproxybypassdomains 'Ethernet' 'localhost 127.0.0.1' &>/dev/null
-    sudo networksetup -setproxybypassdomains 'Thunderbolt Ethernet' 'localhost 127.0.0.1' &>/dev/null
 }
 unsetProxy() {
     sudo networksetup -setsecurewebproxystate Wi-Fi off &>/dev/null
     sudo networksetup -setwebproxystate Wi-Fi off &>/dev/null
     sudo networksetup -setsocksfirewallproxystate Wi-Fi off &>/dev/null
+    sudo networksetup -setsecurewebproxystate 'iPhone USB' off &>/dev/null
+    sudo networksetup -setwebproxystate 'iPhone USB' off &>/dev/null
+    sudo networksetup -setsocksfirewallproxystate 'iPhone USB' off &>/dev/null
     sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off &>/dev/null
     sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off &>/dev/null
     sudo networksetup -setsocksfirewallproxystate 'Thunderbolt Ethernet' off &>/dev/null
