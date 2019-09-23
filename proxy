@@ -55,7 +55,7 @@ initProxy(){
     if [[ ! $? -eq 0 ]]; then
       brew tap v2ray/v2ray && brew install v2ray-core
     else
-      brew uninstall v2ray-core && brew install v2ray-core
+      brew upgrade v2ray-core
     fi
 
     cp /usr/local/etc/v2ray/config.json /usr/local/etc/v2ray/config.json.bak
@@ -84,6 +84,8 @@ restart)
 echo proxy restarting...
 unsetProxy
 setProxy
+cp /usr/local/etc/v2ray/config.json /usr/local/etc/v2ray/config.json.bak
+cat ~/.proxy/config.json > /usr/local/etc/v2ray/config.json
 brew services restart v2ray-core
 ;;
 
@@ -93,13 +95,24 @@ testProxy
 brew services list | grep v2ray-core
 ;;
 
+upgrade)
+echo upgrading...
+cd ~/.proxy && git stash push && git pull origin develop && git stash pop
+cp /usr/local/etc/v2ray/config.json /usr/local/etc/v2ray/config.json.bak
+cat ~/.proxy/config.json > /usr/local/etc/v2ray/config.json
+proxy restart
+cd -
+;;
+
 help|*)
+
 echo -e '''
 init      Download and setup dependencies.
 start     Start your proxy and setup global proxy environment.
 stop      Stop your proxy and restore global proxy environment.
 restart   Restart proxy server (v2ray-core) .
 status    Show proxy status.
+upgrade   Upgrade proxy config and current repository, and then restart proxy.
 '''
 ;;
 esac

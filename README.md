@@ -8,8 +8,8 @@ A simple (pure bash script) command line installer and controller for [v2ray-cor
 <!-- vim-markdown-toc GFM -->
 
 * [Usage](#usage)
-	* [setup](#setup)
-	* [advanced](#advanced)
+  * [setup](#setup)
+  * [advanced](#advanced)
 
 <!-- vim-markdown-toc -->
 
